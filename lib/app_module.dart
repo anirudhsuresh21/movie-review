@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:movie_review/home/home_module.dart';
 import 'package:movie_review/signup/signup_module.dart';
 
 class AppModule extends Module {
@@ -12,6 +13,11 @@ class AppModule extends Module {
     r.module(
       SignUpModule.moduleRoute,
       module: SignUpModule(),
+      transition: TransitionType.fadeIn,
+    );
+    r.module(
+      HomeModule.moduleRoute,
+      module: HomeModule(),
       transition: TransitionType.fadeIn,
     );
   }

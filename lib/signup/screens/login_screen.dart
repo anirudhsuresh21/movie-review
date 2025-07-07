@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_review/home/home_module.dart';
 
 import '../../widgets/GlassTextField.dart';
 import '../../widgets/custom_button.dart';
@@ -108,6 +110,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             CustomButton(
                               buttonText: "Login",
                               buttonWidth: 400,
+                              goTo: () {
+                                Modular.to
+                                    .popAndPushNamed(HomeModule.moduleRoute);
+                              },
                             ),
                             const SizedBox(height: 20),
                             RichText(

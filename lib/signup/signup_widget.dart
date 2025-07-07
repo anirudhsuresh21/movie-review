@@ -16,6 +16,6 @@ class SignupWidget extends StatefulWidget {
 class _SignupWidgetState extends State<SignupWidget> {
   @override
   Widget build(BuildContext context) {
-    return const SignupScreen();
+    return const LoginScreen();
   }
 }
