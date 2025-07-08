@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:movie_review/home/home_module.dart';
 import 'package:movie_review/home/screens/dashboard_screen.dart';
+import 'package:movie_review/home/screens/navbar_screen.dart';
 import 'package:movie_review/signup/screens/login_screen.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -16,6 +17,6 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
-    return const DashboardScreen();
+    return const NavbarScreen();
   }
 }
