@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:movie_review/home/home_module.dart';
-import 'package:movie_review/home/screens/dashboard_screen.dart';
-import 'package:movie_review/home/screens/navbar_screen.dart';
-import 'package:movie_review/signup/screens/login_screen.dart';
+import 'package:movie_review/modules/home/screens/navbar_screen.dart';
+
+import 'home_module.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});

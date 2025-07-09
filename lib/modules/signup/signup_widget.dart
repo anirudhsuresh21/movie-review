@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_review/signup/screens/login_screen.dart';
-import 'package:movie_review/signup/screens/signup_screen.dart';
-import 'package:movie_review/signup/signup_module.dart';
-import 'package:movie_review/signup/screens/splash_screen.dart';
+import 'package:movie_review/modules/signup/screens/login_screen.dart';
+import 'package:movie_review/modules/signup/signup_module.dart';
+import 'package:movie_review/modules/signup/screens/splash_screen.dart';
 
 class SignupWidget extends StatefulWidget {
   const SignupWidget({super.key});

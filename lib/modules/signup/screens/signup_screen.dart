@@ -1,20 +1,18 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_review/home/home_module.dart';
 
-import '../../widgets/GlassTextField.dart';
-import '../../widgets/custom_button.dart';
+import '../../../widgets/GlassTextField.dart';
+import '../../../widgets/custom_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -25,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: const AssetImage("assets/login.png"),
+            image: const AssetImage("assets/signup.png"),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Colors.black.withOpacity(0.2),
@@ -58,8 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
 
-                SizedBox(height: size.height * 0.45),
-
+                SizedBox(height: size.height * 0.35),
                 // Glass Login Box
                 Center(
                   child: ClipRRect(
@@ -102,18 +99,20 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 16),
                             const GlassTextField(
+                              hint: "Email",
+                              icon: Icons.mail_outline_rounded,
+                              isPassword: true,
+                            ),
+                            const SizedBox(height: 16),
+                            const GlassTextField(
                               hint: "Password",
                               icon: Icons.lock,
                               isPassword: true,
                             ),
                             const SizedBox(height: 10),
                             CustomButton(
-                              buttonText: "Login",
+                              buttonText: "Sign Up",
                               buttonWidth: 400,
-                              goTo: () {
-                                Modular.to
-                                    .popAndPushNamed(HomeModule.moduleRoute);
-                              },
                             ),
                             const SizedBox(height: 20),
                             RichText(
@@ -121,14 +120,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: "Don't have an account? Please ",
+                                    text: "Already have an account? Go to the ",
                                     style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontSize: 12,
                                     ),
                                   ),
                                   TextSpan(
-                                    text: 'Sign Up ',
+                                    text: 'Login Page ',
                                     style: GoogleFonts.poppins(
                                       color: Color(
                                           0xffFFB703), // Green color similar to the image
@@ -136,13 +135,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       fontSize: 12,
                                     ),
                                   ),
-                                  TextSpan(
-                                    text: 'first',
-                                    style: GoogleFonts.poppins(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                    ),
-                                  ),
+                                  // TextSpan(
+                                  //   text: 'first',
+                                  //   style: GoogleFonts.poppins(
+                                  //     color: Colors.white,
+                                  //     fontSize: 12,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

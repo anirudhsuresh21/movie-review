@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:movie_review/home/home_widget.dart';
-import 'package:movie_review/signup/signup_module.dart';
+import 'package:movie_review/modules/home/home_widget.dart';
+// import 'package:movie_review/signup/signup_module.dart';
 
 class HomeModule extends Module {
   static String get moduleRoute => '/home';

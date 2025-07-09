@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_review/services/api_services.dart';
 import 'package:movie_review/widgets/movie_card.dart';
+
+import '../../../models/upcoming_movies.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -10,6 +13,19 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  late Future<UpcomingMovies> upcomingFuture;
+  late Future<UpcomingMovies> topRatedFuture;
+  late Future<UpcomingMovies> popularFuture;
+  ApiServices apiServices = ApiServices();
+
+  @override
+  void initState() {
+    super.initState();
+    upcomingFuture = apiServices.getUpcomingMovies();
+    topRatedFuture = apiServices.getTopRatedMovies();
+    popularFuture = apiServices.getPopularMovies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,20 +106,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 height: 20,
               ),
               Text(
-                "New Releases",
+                "Top Rated",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 26,
                     color: Colors.white),
               ),
               // Horizontal scroll view
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // 👈 Add this line
-                child: Row(
-                  children: List.generate(
-                    5,
-                    (index) => MovieCard(),
-                  ),
+              SizedBox(
+                height: 240,
+                child: MovieCard(
+                  future: topRatedFuture,
+                  isRating: true,
                 ),
               ),
               SizedBox(
@@ -117,37 +131,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     color: Colors.white),
               ),
               // Horizontal scroll view
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // 👈 Add this line
-                child: Row(
-                  children: List.generate(
-                    5,
-                    (index) => MovieCard(
-                      isDate: true,
-                    ),
-                  ),
+              SizedBox(
+                height: 240,
+                child: MovieCard(
+                  future: popularFuture,
+                  isDate: true,
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
-                "New Releases",
+                "Upcoming",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 26,
                     color: Colors.white),
               ),
               // Horizontal scroll view
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // 👈 Add this line
-                child: Row(
-                  children: List.generate(
-                    5,
-                    (index) => MovieCard(),
-                  ),
+              SizedBox(
+                height: 240,
+                child: MovieCard(
+                  future: upcomingFuture,
+                  // isRating: true,
+                  isDate: true,
                 ),
-              )
+              ),
             ],
           ),
         ),

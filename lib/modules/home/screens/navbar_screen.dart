@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
-import 'package:movie_review/home/screens/dashboard_screen.dart';
-import 'package:movie_review/home/screens/movie_detail_screen.dart';
-import 'package:movie_review/home/screens/profile_screen.dart';
+import 'package:movie_review/modules/home/screens/dashboard_screen.dart';
+import 'package:movie_review/modules/home/screens/profile_screen.dart';
+
+import 'movie_detail_screen.dart';
 
 class NavbarScreen extends StatefulWidget {
   const NavbarScreen({super.key});

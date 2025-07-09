@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:movie_review/home/home_module.dart';
-import 'package:movie_review/signup/signup_module.dart';
+import 'modules/home/home_module.dart';
+import 'modules/signup/signup_module.dart';
 
 class AppModule extends Module {
   @override

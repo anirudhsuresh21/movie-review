@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:movie_review/signup/signup_widget.dart';
+import 'package:movie_review/modules/signup/signup_widget.dart';
 
 class SignUpModule extends Module {
   static String get moduleRoute => "/";
