@@ -102,7 +102,7 @@ class _MovieCardState extends State<MovieCard> {
                             (visiblePosition - (screenWidth - itemWidth)) /
                                 itemWidth;
                         dynamicWidth = baseWidth +
-                            (visibility * 30); // Increase width by up to 30px
+                            (visibility * 70); // Increase width by up to 30px
                       }
 
                       final GlobalKey imageKey = GlobalKey();

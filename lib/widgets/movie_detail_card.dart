@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../common/utils.dart';
+
 class MovieDetailCard extends StatefulWidget {
-  const MovieDetailCard({super.key});
+  final String? backDrop;
+  final String? movieName;
+  final String? movieDesc;
+  final String? director;
+  final String? date;
+  final String? posterPath;
+  final int? duration;
+  final String? production;
+
+  const MovieDetailCard({
+    super.key,
+    this.backDrop,
+    this.movieName,
+    this.movieDesc,
+    this.director,
+    this.date,
+    this.posterPath,
+    this.duration,
+    this.production,
+  });
 
   @override
   State<MovieDetailCard> createState() => _MovieDetailCardState();
 }
 
 class _MovieDetailCardState extends State<MovieDetailCard> {
+  String formatRuntime(int minutes) {
+    final hours = minutes ~/ 60;
+    final mins = minutes % 60;
+    return '${hours}h ${mins}min';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,11 +65,20 @@ class _MovieDetailCardState extends State<MovieDetailCard> {
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24),
-              child: Image.asset(
-                'assets/harry3.jpg',
+              child: Image.network(
+                '$imageUrl${widget.backDrop}',
                 height: 180,
                 width: double.infinity,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 180,
+                    color: Colors.grey[800],
+                    child: const Center(
+                      child: Icon(Icons.movie, color: Colors.white, size: 50),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -51,14 +87,17 @@ class _MovieDetailCardState extends State<MovieDetailCard> {
           Positioned(
             top: 15,
             left: 15,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(6.0),
-                child: Icon(Icons.arrow_back, color: Colors.white),
+            child: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Icon(Icons.arrow_back, color: Colors.white),
+                ),
               ),
             ),
           ),
@@ -74,25 +113,36 @@ class _MovieDetailCardState extends State<MovieDetailCard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    // Profile Image
+                    // Movie Poster
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        'assets/harry.jpg',
+                      child: Image.network(
+                        '$imageUrl${widget.posterPath}',
                         width: 120,
                         height: 160,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: 120,
+                            height: 160,
+                            color: Colors.grey[800],
+                            child: const Icon(
+                              Icons.movie,
+                              color: Colors.white,
+                              size: 50,
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(width: 12),
-                    // Movie Title and Tag
+                    // Movie Title and Details
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // const SizedBox(height: 20),
                           Text(
-                            "Harry Potter and the Prisoner of Azkaban",
+                            "${widget.movieName}",
                             style: GoogleFonts.khand(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -107,31 +157,35 @@ class _MovieDetailCardState extends State<MovieDetailCard> {
                               const Icon(Icons.movie_outlined,
                                   color: Colors.grey, size: 16),
                               const SizedBox(width: 6),
-                              Flexible(
+                              Expanded(
                                 child: Text(
-                                  "Directed by Alfonso Cuarón",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Icon(Icons.people,
-                                  color: Colors.grey, size: 16),
-                              const SizedBox(width: 6),
-                              Flexible(
-                                child: Text(
-                                  "Warner Bros. Pictures, 1492 Pictures, Heyday Films, P of A Productions Limited",
+                                  "Directed by ${widget.director ?? 'Unknown'}",
                                   style: GoogleFonts.poppins(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.grey,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              const Icon(Icons.people,
+                                  color: Colors.grey, size: 16),
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  widget.production ?? "Production companies",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
@@ -142,52 +196,48 @@ class _MovieDetailCardState extends State<MovieDetailCard> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                // Followers & Followings
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(Icons.access_time_outlined,
-                        color: Colors.grey, size: 18),
-                    const SizedBox(width: 6),
-                    Flexible(
-                      child: Text(
-                        "2 hr 21 min",
+                // Movie metadata
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      const Icon(Icons.access_time_outlined,
+                          color: Colors.grey, size: 18),
+                      const SizedBox(width: 6),
+                      Text(
+                        formatRuntime(widget.duration ?? 0),
                         style: GoogleFonts.poppins(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Colors.grey,
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    const Icon(Icons.calendar_month_outlined,
-                        color: Colors.grey, size: 18),
-                    const SizedBox(width: 6),
-                    Flexible(
-                      child: Text(
-                        "May 31, 2004",
+                      const SizedBox(width: 16),
+                      const Icon(Icons.calendar_month_outlined,
+                          color: Colors.grey, size: 18),
+                      const SizedBox(width: 6),
+                      Text(
+                        "${widget.date}",
                         style: GoogleFonts.poppins(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Colors.grey,
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    const Icon(Icons.remove_red_eye_outlined,
-                        color: Colors.grey, size: 18),
-                    const SizedBox(width: 6),
-                    Flexible(
-                      child: Text(
+                      const SizedBox(width: 16),
+                      const Icon(Icons.remove_red_eye_outlined,
+                          color: Colors.grey, size: 18),
+                      const SizedBox(width: 6),
+                      Text(
                         "Not Watched",
                         style: GoogleFonts.poppins(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Colors.grey,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

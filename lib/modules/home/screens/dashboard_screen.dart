@@ -24,6 +24,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
     upcomingFuture = apiServices.getUpcomingMovies();
     topRatedFuture = apiServices.getTopRatedMovies();
     popularFuture = apiServices.getPopularMovies();
+
+    // Test movie detail API
+    _testMovieDetail();
+  }
+
+  void _testMovieDetail() async {
+    try {
+      final movieDetail =
+          await apiServices.getMovieDetail(278); // The Shawshank Redemption
+      print('Movie Detail Success: ${movieDetail.title}');
+      print('Runtime: ${movieDetail.runtime} minutes');
+      print('Genres: ${movieDetail.genres.map((g) => g.name).join(', ')}');
+    } catch (e) {
+      print('Movie Detail Error: $e');
+    }
   }
 
   @override
@@ -112,6 +127,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     fontSize: 26,
                     color: Colors.white),
               ),
+              SizedBox(
+                height: 10,
+              ),
               // Horizontal scroll view
               SizedBox(
                 height: 240,
@@ -130,6 +148,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     fontSize: 26,
                     color: Colors.white),
               ),
+              SizedBox(
+                height: 10,
+              ),
               // Horizontal scroll view
               SizedBox(
                 height: 240,
@@ -147,6 +168,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     fontWeight: FontWeight.w600,
                     fontSize: 26,
                     color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
               ),
               // Horizontal scroll view
               SizedBox(

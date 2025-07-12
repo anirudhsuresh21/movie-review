@@ -1,10 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_review/common/utils.dart';
 import 'package:movie_review/models/upcoming_movies.dart';
+import 'package:movie_review/modules/home/screens/movie_detail_screen.dart';
 
 class MovieDetailOverlay extends StatefulWidget {
   final Result movie;
@@ -448,55 +450,14 @@ class _MovieDetailOverlayState extends State<MovieDetailOverlay>
                                                             top: 8),
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        // Show full overview dialog
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (context) =>
-                                                              AlertDialog(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xff002335),
-                                                            title: Text(
-                                                              "Full Overview",
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                color: const Color(
-                                                                    0xffFFB703),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                            content:
-                                                                SingleChildScrollView(
-                                                              child: Text(
-                                                                widget.movie
-                                                                    .overview,
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .poppins(
-                                                                  color: Colors
-                                                                          .grey[
-                                                                      300],
-                                                                  height: 1.5,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        context),
-                                                                child: Text(
-                                                                  "Close",
-                                                                  style: GoogleFonts
-                                                                      .poppins(
-                                                                    color: const Color(
-                                                                        0xffFFB703),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                MovieDetailScreen(
+                                                                    movieId: widget
+                                                                        .movie
+                                                                        .id),
                                                           ),
                                                         );
                                                       },
